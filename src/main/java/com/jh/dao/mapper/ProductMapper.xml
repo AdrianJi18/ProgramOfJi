@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jh.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.jh.pojo.Product" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="a_id" property="aId" jdbcType="INTEGER" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="desciption" property="desciption" jdbcType="VARCHAR" />
+    <result column="use" property="use" jdbcType="VARCHAR" />
+    <result column="productQC" property="productqc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, a_id, img, desciption, use, productQC
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jh.pojo.Product" >
+    insert into product (id, a_id, img, 
+      desciption, use, productQC
+      )
+    values (#{id,jdbcType=INTEGER}, #{aId,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, 
+      #{desciption,jdbcType=VARCHAR}, #{use,jdbcType=VARCHAR}, #{productqc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jh.pojo.Product" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="aId != null" >
+        a_id,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="desciption != null" >
+        desciption,
+      </if>
+      <if test="use != null" >
+        use,
+      </if>
+      <if test="productqc != null" >
+        productQC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="aId != null" >
+        #{aId,jdbcType=INTEGER},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="desciption != null" >
+        #{desciption,jdbcType=VARCHAR},
+      </if>
+      <if test="use != null" >
+        #{use,jdbcType=VARCHAR},
+      </if>
+      <if test="productqc != null" >
+        #{productqc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jh.pojo.Product" >
+    update product
+    <set >
+      <if test="aId != null" >
+        a_id = #{aId,jdbcType=INTEGER},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="desciption != null" >
+        desciption = #{desciption,jdbcType=VARCHAR},
+      </if>
+      <if test="use != null" >
+        use = #{use,jdbcType=VARCHAR},
+      </if>
+      <if test="productqc != null" >
+        productQC = #{productqc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jh.pojo.Product" >
+    update product
+    set a_id = #{aId,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      desciption = #{desciption,jdbcType=VARCHAR},
+      use = #{use,jdbcType=VARCHAR},
+      productQC = #{productqc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

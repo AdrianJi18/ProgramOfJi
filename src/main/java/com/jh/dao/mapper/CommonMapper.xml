@@ -1,0 +1,177 @@
+<?xml version= "1.0" encoding ="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jh.dao.CommonMapper">
+	
+	<!--查询条目数-->
+	<select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Integer">
+	<![CDATA[
+		select count(ID) from ${table}
+	]]>
+	</select>
+	
+	<!--按条件查询条目数-->
+	<select id="countTotalByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
+	<![CDATA[
+		select count(ID) from ${table} where ${condition}
+	]]>
+	</select>
+	
+	<!--清空表-->
+	<update id="deleteAll" parameterType="java.util.Map">
+	<![CDATA[
+		truncate table ${table}
+	]]>
+	</update>
+	
+	<!--按编号删除-->
+	<delete id="deleteById" parameterType="java.util.Map">
+	<![CDATA[
+		delete from ${table} where id=#{id}
+	]]>
+	</delete>
+	
+	<!--按编号批量删除-->
+	<delete id="deleteByIds" parameterType="java.util.Map">
+		delete from ${table} where id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!--按条件删除-->
+	<delete id="deleteByOneColumn" parameterType="java.util.Map">
+	<![CDATA[
+		delete from ${table} where ${column}=#{value}
+	]]>
+	</delete>
+	
+	<!--按多个条件删除-->
+	<delete id="deleteByConditions" parameterType="java.util.Map">
+		delete from ${table} where 
+		<foreach item="item" index="index" collection="values" separator="or">
+			<foreach collection="columns" item="column" index="index" open="(" close=")" separator="and">
+				${column}=#{item.${column}}
+			</foreach>
+		</foreach>
+	</delete>
+	
+	<!--插入数据-->
+	<insert id="insertObject" parameterType="java.lang.String">
+		${_parameter}
+	</insert>
+	
+	<!--批量插入-->
+	<insert id="insertBatch" parameterType="java.util.Map">
+		insert into ${table}
+		<foreach collection="columns" item="column" index="index" open="(" close=")" separator=",">
+			${column}
+		</foreach>
+		values
+		<foreach collection="values" item="item" index="index" open="" close="" separator=",">
+			<foreach collection="columns" item="column" index="index" open="(" close=")" separator=",">
+				#{item.${column}}
+			</foreach>
+		</foreach> 
+	</insert>
+	
+	<!--最后插入的主键ID-->
+	<select id="selectId" resultType="java.lang.Long">
+	<![CDATA[
+		SELECT LAST_INSERT_ID()
+	]]>
+	</select>
+	
+	<!--查询所有-->
+	<select id="selectAll" parameterType="java.lang.String" resultType="java.util.Map">
+	<![CDATA[
+		select * from ${table}
+	]]>
+	</select>
+	
+	
+	
+	
+	<!--查询一条数据-->
+	<select id="selectOne" parameterType="java.util.Map" resultType="java.util.Map">
+	<![CDATA[
+		select * from ${table} limit 1
+	]]>
+	</select>
+	
+	<!--按条件查询一条-->
+	<select id="selectOneByCondition" parameterType="java.util.Map" resultType="java.util.Map">
+	<![CDATA[
+		select * from ${table} where ${column}=#{value} limit 1
+	]]>
+	</select>
+	
+	<!--分页查询-->
+	<select id="selectPaging" parameterType="java.util.Map" resultType="java.util.Map">
+	<![CDATA[
+		select * from ${table} limit #{start},#{limit}
+	]]>
+	</select>
+	
+	<!--按条件分页查询-->
+	<select id="selectPagingByCondition" parameterType="java.util.Map" resultType="java.util.Map">
+	<![CDATA[
+		select * from ${table} where ${condition} limit #{start},#{limit}
+	]]>
+	</select>
+	
+	<!--按id更新一条记录一列-->
+	<update id="updateOneColumnById" parameterType="java.util.Map">
+	<![CDATA[
+		update ${table} set ${column}=#{value} where id=#{id}
+	]]>
+	</update>
+	
+	<!--按键更新一列-->
+	<update id="updateOneColumnByKey" parameterType="java.util.Map">
+	<![CDATA[
+		update ${table} set ${column}=#{value} where ${key} = #{kValue}
+	]]>
+	</update>
+	
+	<!--按id更新一条记录多列-->
+	<update id="updateObjectById" parameterType="java.util.Map">
+		update ${table} set 
+		<foreach collection="list" item="item" index="index" separator=","> 
+			${item.name}=#{item.value}
+		</foreach> where id=#{id}
+	</update>
+	
+	<!--按id批量更新多条数据一列-->
+	<update id="updateObjectByIds" parameterType="java.util.Map">
+		update ${table} set ${column}=#{value} where id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<!--按主键批量修改单列-->
+	<update id="updateBatchByPk" parameterType="java.util.Map">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			update ${table} 
+			<set>
+				${item.column} = #{item.value}
+			</set>
+			where ${item.pkColumn} = #{item.pkValue}
+		</foreach> 
+	</update>
+	
+	<!--按主键批量修改多列-->
+	<update id="updateBatchColumnsByPk" parameterType="java.util.Map">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			update ${table} 
+			<set>
+			<foreach collection="item.columnvalues" item="columnvalue" index="index" separator=","> 
+				${columnvalue.column}=#{columnvalue.value}
+			</foreach>
+			</set>
+			where ${item.pkColumn} = #{item.pkValue}
+		</foreach> 
+	</update>
+</mapper>

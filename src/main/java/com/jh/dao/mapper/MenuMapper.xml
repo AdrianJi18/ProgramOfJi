@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jh.dao.MenuMapper" >
+  <sql id="Base_Column_List" >
+    id, name, pid, level, path, img
+  </sql>
+  <!-- 查询所有菜单 -->
+	<select id="selectAllMenu" resultType="com.jh.pojo.Menu1">
+	<![CDATA[
+		select id,name,pid,level,path,img from menu1
+	]]>
+	</select>
+	<!-- 按等级查询菜单 -->
+	<select id="selectMenusByLevel" parameterType="java.lang.Integer" resultType="com.jh.pojo.Menu1">
+	<![CDATA[
+		select id,name,path,img from menu1 where level=#{level}
+	]]>
+	</select>
+	<!-- 按等级1菜单查询子菜单 -->
+	<select id="selectMenusByLevel1MenuId" parameterType="java.lang.Integer" resultType="com.jh.pojo.Menu1">
+	<![CDATA[
+		select id,name,pid,level,path,img from menu1 where pid=#{menuId}
+		UNION
+		select id,name,pid,level,path,img from menu1 where pid in (select id from menu1 where pid=#{menuId})
+	]]>
+	</select>
+	<!-- 按权限编号查询菜单 -->
+	<select id="selectMenusByPermissionId" parameterType="java.lang.Integer" resultType="com.jh.pojo.Menu1">
+	<![CDATA[
+		select id,name,pid,level,path,img from menu1 where id in (select menuId from permission_menu where permissionId=#{permissionId})
+	]]>
+	</select>
+	<!--按权限编号和等级查询菜单-->
+	<select id="selectMenusByPermissionIdLevel" parameterType="java.util.Map" resultType="com.jh.pojo.Menu1">
+	<![CDATA[
+		select A.id,A.name,A.path,A.img from menu1 A right join permission_menu B 
+		on A.id=B.menuId where B.permissionId=#{permissionId} and A.level=#{level}
+	]]>
+	</select>
+</mapper>

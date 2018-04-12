@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jh.dao.VisitLogMapper" >
+  <sql id="Base_Column_List" >
+    id, userName, visitime, exitime
+  </sql>
+  <select id="selectId" resultType="java.lang.Long">
+    select LAST_INSERT_ID() 
+  </select>
+  <!-- 插入访问日志 -->
+	<insert id="insertVisitlog" parameterType="java.lang.String">
+	<![CDATA[
+		insert into visitlog (userName) values(#{userName})
+	]]>
+	</insert>
+	<!--按条件查询访问日志条目数 -->
+	<select id="countVisitlogByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(ID) from `visitlog`
+		<if test="fromDate !=null ">
+			<![CDATA[
+			where ${key}>#{fromDate} and ${key}<#{toDate} 
+			]]>
+		</if>
+		<if test="value != null">
+			where ${key} like concat('%', #{value},'%')
+		</if>
+	</select>
+	<!--按条件查询访问日志 -->
+	<select id="selectVisitlogByCondition" parameterType="java.util.Map" resultType="java.util.Map">
+		select id,userName,visitime,exitime from `visitlog` 
+		<if test="fromDate !=null ">
+			<![CDATA[
+			where ${key}>#{fromDate} and ${key}<#{toDate} 
+			]]>
+		</if>
+		<if test="value != null">
+			where ${key} like concat('%', #{value},'%')
+		</if>
+		order by visitime desc limit #{start},#{limit}
+	</select>
+	<!--按条件查询访问日志不分页 -->
+	<select id="selectVisitlogByConditionNoPaging" parameterType="java.util.Map" resultType="com.jh.pojo.VisitLog">
+		select id,userName,visitime,exitime from `visitlog` 
+		<if test="fromDate !=null ">
+			<![CDATA[
+			where ${key}>#{fromDate} and ${key}<#{toDate} 
+			]]>
+		</if>
+		<if test="value != null">
+			where ${key} like concat('%', #{value},'%')
+		</if>
+		order by visitime desc
+	</select>
+  <insert id="insertiveVisitlog" parameterType="com.jh.pojo.VisitLog" >
+    insert into visitlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        userName,
+      </if>
+      <if test="visitime != null" >
+        visitime,
+      </if>
+      <if test="exitime != null" >
+        exitime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitime != null" >
+        #{visitime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exitime != null" >
+        #{exitime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <!--更新访问日志退出时间-->
+	<update id="updateVisitlogExitTime" parameterType="java.util.Map">
+		<![CDATA[
+		update visitlog set exitime=#{exitime} where id=#{id}
+		]]>
+	</update>
+</mapper>

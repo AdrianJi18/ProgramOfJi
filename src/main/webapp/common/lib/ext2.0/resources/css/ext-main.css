@@ -1,0 +1,35 @@
+html, body {
+	font:normal 12px verdana;
+	margin:0;
+	padding:0;
+	border:0 none;
+	overflow:hidden;
+	height:100%;
+}
+span.x-panel-header-text{font-size:12px;}
+.x-column-layout-ct .x-panel {
+	margin-bottom:5px;
+}
+.x-column-layout-ct .x-panel-dd-spacer {
+	margin-bottom:5px;
+}
+.settings {
+	background-image:url(../images/default/folder_wrench.png) !important;
+}
+.nav {
+	background-image:url(../images/default/folder_go.png) !important;
+}
+
+#busi-proc-tree,#sys-manage,#self-help{width:100%;height:100%;overflow:auto;}
+#workflow,#Workflow{width:100%;height:100%;}
+
+#north{width:100%;height:80px;position:absolute;background:url(../images/top-bg.gif) repeat-x;}
+#global-logo{float:left;width:800px;height:80px;background: url(../images/top-right.png) no-repeat;}
+#north-menu{font:normal 20px verdana;padding:16px;}
+#center{margin:180px";}
+#south{width:100%;height:30px;padding:6px 0pt 0pt 0;position:absolute;left:0;bottom:0;background: url(../images/main-toolbar-bg.gif) repeat-x left top;text-align:center}
+#login-info div{float:right;margin:0pt;padding:0pt 5px 0px 10px; text-align:right;}
+#login-info{height:30px;padding:6px 0pt 0pt 0;background: url(../images/main-toolbar-bg.gif) repeat-x left top;}
+*html #login-info div.login-user{padding-top:2px;}
+
+

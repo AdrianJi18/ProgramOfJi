@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jh.dao.UserMapper" >
+  <sql id="Base_Column_List" >
+    id, userName, password, trueName, age, phone, addr, area, identity,permissionId,audit,pid
+  </sql>
+  <!-- 批量修改密码 -->
+	<update id="resetPassword" parameterType="java.util.Map">
+		update user set `password`=#{password}  where id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+  <!-- 通过PID和角色获取用户 -->
+	<select id="selectUserByPidRole" parameterType="java.util.Map" resultType="java.util.Map">
+		select A.id,A.userName,A.permissionId,B.name as permissionName,A.audit,A.identity,A.trueName,A.age,A.addr,A.area,A.phone
+		     
+			from user A left join permission B on A.permissionId=B.id
+		<if test="id != null">
+			<![CDATA[
+			where A.id=#{id}
+			]]>
+		</if>
+		<if test="role==1">
+			<![CDATA[
+			or A.pid=#{id}
+			]]>
+		</if>
+	</select>
+ 
+  <select id="selectRoleByPermissionId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select role from permission where id = #{permissionId,jdbcType=INTEGER}
+  </select>
+  <!-- 通过用户名获取用户 -->
+	<select id="selectUserByUserName" parameterType="java.lang.String" resultType="com.jh.pojo.User">
+	<![CDATA[
+		select id,userName,password,permissionId,trueName,age,phone,addr,area,identity,audit,`pid` from user where userName=#{userName}
+	]]>
+	</select>
+  <!--通过用户名或卡号或联系方式或指纹编号查询-->
+	<select id="selectUserByUnique" parameterType="java.util.Map" resultType="java.lang.String">
+		select `userName` from `user` where 1>1 
+		<if test="userName!=null">
+			or `userName`=#{userName}
+		</if>
+		<if test="phone!=null">
+			or `phone`=#{phone}
+		</if>
+		limit 1
+	</select>
+	<!--按id更新一条记录多列-->
+	<update id="updateUserById" parameterType="java.util.Map">
+		update `user` set 
+		<foreach collection="list" item="item" index="index" separator=","> 
+			${item.name}=#{item.value}
+		</foreach> where id=#{id}
+	</update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <!-- 插入用户 -->
+	<insert id="insertUser" parameterType="com.jh.pojo.User">
+	<![CDATA[
+	insert into user(userName, password, trueName, age, phone, addr, area, identity,permissionId,audit,pid) values 
+		(#{userName},#{password},#{trueName},#{age},#{phone},#{addr},
+		#{area},#{identity},#{permissionId},#{audit},#{pid})
+	]]>
+	</insert>
+</mapper>

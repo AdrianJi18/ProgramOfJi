@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jh.dao.PermissionMapper" >
+  <sql id="Base_Column_List" >
+    id, name, role
+  </sql>
+  <select id="selectId" resultType="java.lang.Integer">
+    select LAST_INSERT_ID() 
+  </select>
+  <!-- 查询所有权限 -->
+	<select id="selectAllPermission" resultType="com.jh.pojo.Permission">
+	<![CDATA[
+		select id,name,role from permission
+	]]>
+	</select>
+	<!-- 新增权限 -->
+	<insert id="insertPermission" parameterType="com.jh.pojo.Permission">
+		<![CDATA[
+		insert into permission(name,role) values (#{name},#{role})
+		]]>
+	</insert>
+	<!--新增权限菜单-->
+	<insert id="insertPermissionMenus" parameterType="java.util.List">
+		insert into permission_menu(permissionId,menuId) values 
+		<foreach collection="list" item="item" index="index" separator=","> 
+			(#{item.permissionId},#{item.menuId})
+		</foreach>
+	</insert>
+	<!--按编号批量删除-->
+	<delete id="deleteByIds" parameterType="java.util.Map">
+		delete from ${table} where id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 更新数据 -->
+	<update id="updatePermission" parameterType="com.jh.pojo.Permission">
+		<![CDATA[
+		update permission set name=#{name}, role=#{role} where id=#{id}
+		]]>
+	</update>
+	<!--按权限编号删除权限菜单-->
+	<delete id="deletePermissionMenusByPermissionId" parameterType="java.lang.Integer">
+	<![CDATA[
+		delete from permission_menu where permissionId=#{id}
+	]]>
+	</delete>
+	<!--按键更新一列-->
+	<update id="updateOneColumnByKey" parameterType="java.util.Map">
+	<![CDATA[
+		update ${table} set ${column}=#{value} where ${key} = #{kValue}
+	]]>
+	</update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from permission
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jh.pojo.Permission" >
+    insert into permission (id, name, role
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jh.pojo.Permission" >
+    insert into permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jh.pojo.Permission" >
+    update permission
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jh.pojo.Permission" >
+    update permission
+    set name = #{name,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

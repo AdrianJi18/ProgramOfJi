@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration> 
+    <!-- classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 -->  
+    <classPathEntry location="D:/apache-maven-3.3.9/apache-maven-3.3.9/MavenRepository/maven_jar/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar" />  
+    <context id="Mysql" targetRuntime="MyBatis3">
+        
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+            <!-- 是否生成注释代时间戳-->  
+            <property name="suppressDate" value="false" />
+        </commentGenerator>
+        
+        <!-- 数据库链接URL，用户名、密码 -->
+        <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/smartfarm" driverClass="com.mysql.jdbc.Driver"
+            password="123456" userId="root" /> 
+        
+        <!-- 生成模型的包名和位置 -->
+        <javaModelGenerator targetPackage="com.jh.pojo" targetProject="./src/main/java">
+            <!-- 是否在当前路径下新加一层schema,eg：false路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->  
+            
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+            <!-- <property name="rootClass" value="com.ajs.base.BaseEntity" /> -->
+        </javaModelGenerator>
+        
+        <!-- 生成映射文件的包名和位置 -->
+        <sqlMapGenerator targetPackage="com.jh.dao.mapper" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator targetPackage="com.jh.dao" targetProject="./src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        
+        <!-- 要生成的表 tableName 是数据库中的表名或视图名 domainObjectName 是实体类名 -->
+        <table tableName="permission" domainObjectName="Permission"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+    </context>
+</generatorConfiguration>
