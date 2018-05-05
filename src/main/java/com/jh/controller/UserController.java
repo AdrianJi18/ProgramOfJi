@@ -172,6 +172,7 @@ public class UserController extends AbstractController{
 			if (userName == null) {
 				// 密码 MD5加密
 				user.setPassword(MD5.getMD5(user.getPassword()));
+				user.setAudit(0);
 				int result = userService.insertUser(user);
 				if (result == 1) {
 					map.put("success", true);
