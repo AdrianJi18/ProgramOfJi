@@ -252,7 +252,7 @@ var operateLog = {
 				globalComponent.progress.stopProgress();
 				var respText = Ext.util.JSON.decode(response.responseText);
 				if (respText.success) {
-					window.location = "backup/patrol/"+ respText.fileName;
+					window.location = "backup/log/"+ respText.fileName;
 				} else {
 					Ext.Msg.alert(spmscontent.prompt, respText.error);
 				}
