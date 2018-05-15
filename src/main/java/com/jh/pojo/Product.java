@@ -9,9 +9,25 @@ public class Product {
 
     private String desciption;
 
-    private String use;
+    private Integer use;
 
-    private String productqc;
+    public Integer getUse() {
+		return use;
+	}
+
+	public void setUse(Integer use) {
+		this.use = use;
+	}
+
+	public Integer getProductqc() {
+		return productqc;
+	}
+
+	public void setProductqc(Integer productqc) {
+		this.productqc = productqc;
+	}
+
+	private Integer productqc;
 
     public Integer getId() {
         return id;
@@ -43,21 +59,5 @@ public class Product {
 
     public void setDesciption(String desciption) {
         this.desciption = desciption == null ? null : desciption.trim();
-    }
-
-    public String getUse() {
-        return use;
-    }
-
-    public void setUse(String use) {
-        this.use = use == null ? null : use.trim();
-    }
-
-    public String getProductqc() {
-        return productqc;
-    }
-
-    public void setProductqc(String productqc) {
-        this.productqc = productqc == null ? null : productqc.trim();
     }
 }

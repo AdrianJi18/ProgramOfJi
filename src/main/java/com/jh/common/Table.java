@@ -23,7 +23,10 @@ public class Table {
 	 * 私有构造函数.
 	 */
 	public Table() {
+		tableMap.put("alarm", "活动告警");
+		tableMap.put("historyalarm", "历史告警");
 		tableMap.put("animal", "牲畜信息");
+		tableMap.put("animal_health", "牲畜健康信息");
 		tableMap.put("menu1", "菜单信息");
 		tableMap.put("operatelog", "操作日志");
 		tableMap.put("orders", "订单信息");

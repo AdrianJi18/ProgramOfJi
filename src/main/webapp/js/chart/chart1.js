@@ -7,7 +7,7 @@
 	createPanel : function() {
 		var panel = new Ext.Panel({
 			renderTo :"chart1",
-			html:"<div id='alarmChart' style='position:relative;z-index:0;width:100%;height:92%;'></div>",
+			html:"<div id='animalChart' style='position:relative;z-index:0;width:100%;height:92%;'></div>",
 			border:true,
 			tbar : [{
 						xtype:"label",
@@ -60,7 +60,7 @@
 	getOption:function(){
  		var option = {
  			title:{
- 				text: "历史告警"
+ 				text: "牲畜数量统计"
  			},
  			tooltip : {
 		        trigger: 'axis',
@@ -81,7 +81,7 @@
  			},
 		    xAxis : [{
 		    	type : 'category',
-		        data : ['紧急', '重要', '一般'],
+		        data : ['猪', '牛', '羊'],
 	            axisTick: {
 	                alignWithLabel: true
 	            }
@@ -93,7 +93,7 @@
 		    	type : 'value'
 	        }],
 		    series : [{
-	            name:'告警个数',
+	            name:'数量',
 	            type:'bar',
 	            barWidth: '60%',
 	            itemStyle:{
@@ -118,7 +118,7 @@
  	},
 	init:function(){
 		chart1.createPanel();
- 		chart1.barChart = echarts.init(document.getElementById("alarmChart"));
+ 		chart1.barChart = echarts.init(document.getElementById("animalChart"));
  		chart1.barChart.setOption(chart1.getOption());
  		chart1.loadData();
  	},
@@ -126,7 +126,7 @@
 		globalComponent.progress.startProgress(spmscontent.operating);
 		Ext.Ajax.request({
 			method : "post",
-			url : "chart/historyAlarm/query.do",
+			url : "chart/animal/query.do",
 			params : {
 				fromDate : fromDate,
 				toDate : toDate
@@ -135,11 +135,11 @@
 				globalComponent.progress.stopProgress();
 				var respText = Ext.util.JSON.decode(response.responseText);
 				if (respText.success) {
-					var num1 = respText["1"];
+					var num1 = respText["猪"];
 					num1 = num1?num1:0;
-					var num2 = respText["2"];
+					var num2 = respText["牛"];
 					num2 = num2?num2:0;
-					var num3 = respText["3"];
+					var num3 = respText["羊"];
 					num3 = num3?num3:0;
 					chart1.barChart.setOption({
 						series : [{

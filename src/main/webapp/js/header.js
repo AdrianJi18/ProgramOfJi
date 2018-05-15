@@ -13,7 +13,7 @@ var header = {
 					var html = "";
 					for(var i=0;i<data.length;i++){
 						var menu = data[i];
-						html+="<li><a href='javascript:void(0)' onclick=header.goToLink('"+menu.id+"','"+menu.name+"');><img src='images/top/"+menu.img+".png' title='"+menu.name+"'/><h2>"+menu.name+"</h2></a></li>";
+						html+="<li style='margin-left:40px;'><a href='javascript:void(0)' onclick=header.goToLink('"+menu.id+"','"+menu.name+"');><img src='images/top/"+menu.img+".png' title='"+menu.name+"'/><h2>"+menu.name+"</h2></a></li>";
 					}
 					document.getElementById("navMenu").innerHTML= html;
 				}else{

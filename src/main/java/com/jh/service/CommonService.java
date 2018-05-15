@@ -41,5 +41,14 @@ public interface CommonService {
 	 * @return 成功条目数
 	 */
 	public int updateObjectByIds(String table, String[] ids, String column, Object value);
+	
+	/**
+	 * 查询表所有数据.
+	 * 
+	 * @param table
+	 *            表名
+	 * @return 数据集合
+	 */
+	public List<Map<String, Object>> queryAll(String table);
 
 }

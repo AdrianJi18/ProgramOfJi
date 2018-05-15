@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration> 
     <!-- classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 -->  
-    <classPathEntry location="D:/apache-maven-3.3.9/apache-maven-3.3.9/MavenRepository/maven_jar/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar" />  
+    <classPathEntry location="D:/MyEclipse Maven/apache-maven-3.3.9/apache-maven-3.3.9/MavenRepository/maven_jar/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar" />  
     <context id="Mysql" targetRuntime="MyBatis3">
         
         <commentGenerator>
@@ -14,7 +14,7 @@
         
         <!-- 数据库链接URL，用户名、密码 -->
         <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/smartfarm" driverClass="com.mysql.jdbc.Driver"
-            password="123456" userId="root" /> 
+            password="root" userId="root" /> 
         
         <!-- 生成模型的包名和位置 -->
         <javaModelGenerator targetPackage="com.jh.pojo" targetProject="./src/main/java">
@@ -36,7 +36,7 @@
         </javaClientGenerator>
         
         <!-- 要生成的表 tableName 是数据库中的表名或视图名 domainObjectName 是实体类名 -->
-        <table tableName="permission" domainObjectName="Permission"
+        <table tableName="historyalarm" domainObjectName="HistoryAlarm"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

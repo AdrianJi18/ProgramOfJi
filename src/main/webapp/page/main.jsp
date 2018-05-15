@@ -66,7 +66,7 @@ li{list-style: none;}
 	<%
 		String userName = (String)session.getAttribute("userName");
 		out.println("var userName=\""+userName+"\";");
-		long visitLogId = (long) session.getAttribute("visitlogId");
+		int visitLogId = (Integer)session.getAttribute("visitlogId");
 		out.println("var visitLogId=\""+visitLogId+"\";");
 	%>
 	Ext.onReady(function(){

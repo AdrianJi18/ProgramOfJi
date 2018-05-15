@@ -5,9 +5,11 @@ public class Animal {
 
     private String type;
 
-    private String area;
+    private Integer area;
 
-    private String growth;
+    private Integer growth;
+    
+    private String inTime;
 
     public Integer getId() {
         return id;
@@ -25,19 +27,29 @@ public class Animal {
         this.type = type == null ? null : type.trim();
     }
 
-    public String getArea() {
-        return area;
-    }
+	public Integer getArea() {
+		return area;
+	}
 
-    public void setArea(String area) {
-        this.area = area == null ? null : area.trim();
-    }
+	public void setArea(Integer area) {
+		this.area = area;
+	}
 
-    public String getGrowth() {
-        return growth;
-    }
+	public Integer getGrowth() {
+		return growth;
+	}
 
-    public void setGrowth(String growth) {
-        this.growth = growth == null ? null : growth.trim();
-    }
+	public void setGrowth(Integer growth) {
+		this.growth = growth;
+	}
+
+	public String getInTime() {
+		return inTime;
+	}
+
+	public void setInTime(String inTime) {
+		this.inTime = inTime;
+	}
+
+
 }

@@ -90,7 +90,12 @@
 	]]>
 	</select>
 	
-	
+	<!--联表查询所有设备编号名称-->
+	<select id="selectAllDevIdName" resultType="java.util.Map">
+	<![CDATA[
+		select `devId`, `devName` from `dev`
+	]]>
+	</select>
 	
 	
 	<!--查询一条数据-->

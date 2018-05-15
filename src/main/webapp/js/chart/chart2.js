@@ -7,7 +7,7 @@
 	createPanel : function() {
 		var panel = new Ext.Panel({
 			renderTo :"chart2",
-			html:"<div id='patrolChart' style='position:relative;z-index:0;width:100%;height:100%;'></div>",
+			html:"<div id='areaChart' style='position:relative;z-index:0;width:100%;height:92%;'></div>",
 			border:true,
 			tbar : [{
 						xtype:"label",
@@ -60,13 +60,13 @@
 	getOption:function(){
  		var option = {
  			title : {
-		        text: '巡更记录'
+		        text: '各中心数量统计'
 		    },
 		    tooltip : {
 		        trigger: 'item',
 		        formatter: "{a} <br/>{b} : {c} ({d}%)"
 		    },
-		    color:["#CC0099","#0000FF", "#00CC00", "#00FFFF", "#66FFFF", "#333366"],  
+		    color:["#CC0099","#0000FF", "#00CC00"],  
 		    toolbox: {
  				feature: {
  					saveAsImage: {}
@@ -74,17 +74,14 @@
  			},
 		    series : [
 		        {
-		            name: '巡更记录',
+		            name: '各中心牲畜数量统计',
 		            type: 'pie',
 		            radius : '80%',
 		            center: ['50%', '50%'],
 		            data:[
-		            	{value:0, name:'已挂失'},
-		            	{value:0, name:'短信已确认'},
-		                {value:0, name:'短信发送失败'},
-		                {value:0, name:'短信已发送'},
-		                {value:0, name:'巡更成功'},
-		                {value:0, name:'未巡更'}
+		            	{value:0, name:'饲养中心'},
+		            	{value:0, name:'生产中心'},
+		                {value:0, name:'销售中心'}
 		            ],
 		            itemStyle: {
 		                emphasis: {
@@ -105,7 +102,7 @@
  	},
 	init:function(){
 		chart2.createPanel();
- 		chart2.pieChart = echarts.init(document.getElementById("patrolChart"));
+ 		chart2.pieChart = echarts.init(document.getElementById("areaChart"));
  		chart2.pieChart.setOption(chart2.getOption());
  		chart2.loadData();
  	},
@@ -113,7 +110,7 @@
 		globalComponent.progress.startProgress(spmscontent.operating);
 		Ext.Ajax.request({
 			method : "post",
-			url : "chart/patrolRecord/query.do",
+			url : "chart/animal/queryArea.do",
 			params : {
 				fromDate : fromDate,
 				toDate : toDate
@@ -122,28 +119,19 @@
 				globalComponent.progress.stopProgress();
 				var respText = Ext.util.JSON.decode(response.responseText);
 				if (respText.success) {
-					//巡更状态 0:未巡更 1:巡更成功 2:短信已发送 3:短信发送失败 4:短信已确认 5:已挂失
-					var num0 = respText["0"];
+					//区域 ： 1 饲养中心  2  生产中心  3 销售中心
+					var num0 = respText["1"];
 					num0 = num0?num0:0;
-					var num1 = respText["1"];
+					var num1 = respText["2"];
 					num1 = num1?num1:0;
-					var num2 = respText["2"];
+					var num2 = respText["3"];
 					num2 = num2?num2:0;
-					var num3 = respText["3"];
-					num3 = num3?num3:0;
-					var num4 = respText["4"];
-					num4 = num4?num4:0;
-					var num5 = respText["5"];
-					num5 = num5?num5:0;
 					chart2.pieChart.setOption({
 						series : [{
 							data : [
-								{value:num5, name:'已挂失'},
-								{value:num4, name:'短信已确认'},
-								{value:num3, name:'短信发送失败'},
-								{value:num2, name:'短信已发送'},
-								{value:num1, name:'巡更成功'},
-		                		{value:num0, name:'未巡更'}
+								{value:num2, name:'销售中心'},
+								{value:num1, name:'生存中心'},
+		                		{value:num0, name:'饲养中心'}
 							]
 						}]
 					});

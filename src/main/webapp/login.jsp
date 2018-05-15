@@ -15,7 +15,6 @@
 body{ margin:5,5,5,5; padding:0; font-size:12px;font-FAMILY:"宋体",Tahoma,Arial,Verdana,sans-serif;}
 img{ border:0;}
 ul,li,dl,dd{ list-style:none; margin:0; padding:0;}
-.top{ height:130px; padding-top:10px;}
 .login_nr{height:100px; text-align:center; line-height:36px; padding-top:1px;}
 .username{ width:203px; height:27px; padding-left:25px; line-height:25px; color:#008db9; background:url(images/bg-username.png) no-repeat; border:none; }
 .password{ width:203px; height:27px; padding-left:25px; line-height:25px; color:#008db9; background:url(images/bg-password.png) no-repeat; border:none;}
@@ -40,15 +39,15 @@ a{text-decoration:none}
 	text-shadow: 0 0 15px #FF0000;
 }
 @keyframes tween{
-	from {color:#CDC5BF;}
+	from {color:#CDCD00;}
 	to{color:#BCD2EE;}
 }
 @-moz-keyframes tween{
-	from {color:#CDC5BF;}
+	from {color:#CDCD00;}
 	to{color:#BCD2EE;}
 }
 @-webkit-keyframes tween{
-	from {color:#CDC5BF;}
+	from {color:#CDCD00;}
 	to{color:#BCD2EE;}
 }
 </style>
@@ -100,9 +99,8 @@ a{text-decoration:none}
 </head>
 
 <body>
-<div class="top"><center><p class="glow">智能养殖场欢迎您</p></center></div>
+<div style="background:url('images/banner.png') no-repeat;width:100%;height:400px;"><center><p class="glow">智能养殖场欢迎您</p></center></div>
 
-<div><img src="images/banner.png" width="100%" /></div>
 <div class="login_nr">
 <br/>
 <form>

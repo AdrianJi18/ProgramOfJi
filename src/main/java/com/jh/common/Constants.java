@@ -143,4 +143,50 @@ public class Constants {
 		 */
 		public static final int PERMISSION = 0;
 	}
+	
+	/**
+	 * WebSocket消息常量
+	 * 
+	 * @author DGH
+	 * @date 2017/6/13
+	 */
+	public class WebSocket {
+
+		/**
+		 * 私有构造函数.
+		 */
+		private WebSocket() {
+
+		}
+
+		/**
+		 * 初始化数据.
+		 */
+		public static final int INITINFO = 1;
+
+		/**
+		 * 新增告警.
+		 */
+		public static final int ALARM_ADD = 2;
+
+		/**
+		 * 自动转历史告警.
+		 */
+		public static final int ALARM_TO_HISTORY_AUTO = 3;
+
+		/**
+		 * 手动转历史告警.
+		 */
+		public static final int ALARM_TO_HISTORY_HAND = 4;
+
+		/**
+		 * 告警状态自动恢复.
+		 */
+		public static final int ALARM_AUTO_RESTORE = 5;
+
+		/**
+		 * 声光告警.
+		 */
+		public static final int ACOUSTOOPTIC = 7;
+	}
 }

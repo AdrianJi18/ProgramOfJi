@@ -169,7 +169,7 @@ public class PermissionController extends AbstractController {
 	}
 
 	/**
-	 * 新增权限.
+	 * 更新权限.
 	 * 
 	 * @return
 	 */

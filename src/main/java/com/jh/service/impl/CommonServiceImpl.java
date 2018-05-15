@@ -66,12 +66,25 @@ public class CommonServiceImpl implements CommonService{
 		map.put("table", table);
 		map.put("column", column);
 		map.put("value", value);
-		List<Long> list = new ArrayList<Long>();
+		List<Integer> list = new ArrayList<Integer>();
 		for (String id : ids) {
-			list.add(Long.valueOf(id));
+			list.add(Integer.valueOf(id));
 		}
 		map.put("list", list);
 		return commonMapper.updateObjectByIds(map);
+	}
+	
+	/**
+	 * 查询表所有数据.
+	 * 
+	 * @param table
+	 *            表名
+	 * @return 数据集合
+	 */
+	public List<Map<String, Object>> queryAll(String table) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("table", table);
+		return commonMapper.selectAll(params);
 	}
 
 }

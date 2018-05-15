@@ -18,6 +18,15 @@ public interface CommonMapper {
 	public int countTotal(Map<String, String> params);
 	
 	/**
+	 * 查询所有.
+	 * 
+	 * @param params
+	 *            参数
+	 * @return 数据
+	 */
+	public List<Map<String, Object>> selectAll(Map<String, String> params);
+	
+	/**
 	 * 分页查询.
 	 * 
 	 * @param params
@@ -32,5 +41,47 @@ public interface CommonMapper {
 	 * @return 成功条目数
 	 */
 	public int updateObjectByIds(Map<String, Object> params);
+	
+	/**
+	 * 按编号删除.
+	 * 
+	 * @param params
+	 *            参数
+	 * @return 删除条目数
+	 */
+	public int deleteById(Map<String, Object> params);
+	
+	/**
+	 * 按编号批量删除.
+	 * 
+	 * @param params
+	 *            参数
+	 * @return 删除成功条目数
+	 */
+	public int deleteByIds(Map<String, Object> params);
+	
+	/**
+	 * 按条件删除.
+	 * 
+	 * @param params
+	 *            参数
+	 * @return 删除成功条目数
+	 */
+	public int deleteByOneColumn(Map<String, Object> params);
+	
+	/**
+	 * 按多个条件删除.
+	 * 
+	 * @param params
+	 *            参数
+	 * @return 删除成功条目数
+	 */
+	public int deleteByConditions(Map<String, Object> params);
+	
+	/**
+	 * 联表查询所有设备编号名称.
+	 * @return 数据
+	 */
+	public List<Map<String, Object>> selectAllDevIdName();
 
 }
