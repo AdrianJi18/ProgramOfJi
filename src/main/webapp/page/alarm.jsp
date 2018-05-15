@@ -28,15 +28,15 @@
 	}
 </style>
 <script type="text/javascript" src="common/lib/RowExpander.js"></script>
-<script type="text/javascript" src="js/topo/alarm.js"></script>
+<script type="text/javascript" src="js/alarm.js"></script>
 <script type="text/javascript">
 	<%
 	int role = (Integer)session.getAttribute("role");
 	out.println("var role="+role+";");
 	%>
 	Ext.onReady(function() {
-		activeAlarm.alarmSeverityStore.on("load", function() {
-			var gridPanel = activeAlarm.createGridPanel();
+		alarm.alarmSeverityStore.on("load", function() {
+			var gridPanel = alarm.createGridPanel();
 			new Ext.Viewport({
 				layout : "border",
 				border : true,
@@ -48,7 +48,7 @@
 				} ]
 			});
 		});
-		activeAlarm.alarmSeverityStore.load();
+		alarm.alarmSeverityStore.load();
 	});
 </script>
 </head>
